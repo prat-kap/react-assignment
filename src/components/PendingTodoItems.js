@@ -14,4 +14,5 @@ const PendingTodoItems = (props) => {
         </div>
     )
 }
+
 export default PendingTodoItems

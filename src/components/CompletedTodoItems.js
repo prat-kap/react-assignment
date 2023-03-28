@@ -14,4 +14,5 @@ const CompletedTodoItems = (props) => {
         </div>
     )
 }
+
 export default CompletedTodoItems
