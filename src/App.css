@@ -1,32 +1,17 @@
 .App {
-  text-align: center;
-}
-#todo-list {
+  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-ul.todoStatus {
-  display: flex;
   align-items: center;
-  justify-content: space-around;
+  background-color: #282c34;
 }
-ul.todoStatus li {
-  width: 50%;
-  padding: 1rem;
-  list-style: none;
-  text-align: center;
-  cursor: pointer;
-}
-ul.todoStatus li.active {
-  background: #e0e0e0;
-}
-.todoTasks {
+.container {
   display: flex;
+  height: 85vh;
+  border: 1px solid grey;
+  padding: 15px;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 40px;
-}
-ul.todos li {
-  margin-bottom: 10px;
+  font-size: 20px;
+  color: #ffffff;
 }
