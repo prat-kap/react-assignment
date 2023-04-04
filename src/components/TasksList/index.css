@@ -1,0 +1,16 @@
+ul.listItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.listItems li {
+  display: flex;
+  width: 450px;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px 20px;
+  background-color: #5dadf8;
+}
+.itemName {
+  flex: 1;
+}

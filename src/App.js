@@ -1,58 +1,68 @@
-import { useReducer, useState } from 'react';
-import {INITIAL_STATE, TodoItemReducer} from "./reducer/TodoItemReducer";
+import { React, useReducer, useState } from "react";
+import { INITIAL_STATE, TodoListReducer } from "./hooks/TodoListReducer";
 
-import './App.css';
+import AddTasks from "./components/AddTasks";
+import TasksList from "./components/TasksList";
+import Tabs from "./components/Tabs";
 
-import TodoForm from "./components/TodoForm";
-import CompletedTodoItems from './components/CompletedTodoItems';
-import PendingTodoItems from './components/PendingTodoItems';
+import { statuses, LABELS } from "./constants/CommonConsts";
+
+import "./App.css";
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState("Pending")
-  const [todo, setTodo] = useState("")
-  const [state, dispatch] = useReducer(TodoItemReducer, INITIAL_STATE)
-
-  const listStatus = ["Pending", "Completed"]
+  const { PENDING, COMPLETED, TODO_LIST, ENTER_TODO_ITEM, ADD_TASK, ADD } =
+    LABELS;
+  const [activeTab, setActiveTab] = useState(statuses[0]);
+  const [todo, setTodo] = useState("");
+  const [state, dispatch] = useReducer(TodoListReducer, INITIAL_STATE);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if(todo !== "") {
-      dispatch({type:"add", payload: todo, status: "pending", id: `${todo}-${Date.now()}`})
-      setTodo("")
+    e.preventDefault();
+    if (todo !== "") {
+      dispatch({
+        type: ADD,
+        payload: todo,
+        status: PENDING,
+        id: `${todo}-${Date.now()}`,
+      });
+      setTodo("");
     }
-  }
-  
-  const handleMarkComplete = (index) => {
-    dispatch({type:"toggle", payload: state.todos[index].taskName, status: "completed", id: state.todos[index].id})
-  }
+  };
 
-  const handleMarkPending = (index) => {
-    dispatch({type:"toggle", payload: state.todos[index].taskName, status: "pending", id: state.todos[index].id})
-  }
-
-  const pendingTasks = state.todos && state.todos.filter(todo => todo.status === "pending")
-  const completedTasks = state.todos && state.todos.filter(todo => todo.status === "completed")
+  const pendingTasks =
+    state.todos && state.todos.filter((todo) => todo.status === PENDING);
+  const completedTasks =
+    state.todos && state.todos.filter((todo) => todo.status === COMPLETED);
 
   return (
     <div className="App">
-      <h1>Todo List</h1>
-      <TodoForm todo={todo} setTodo={setTodo} handleSubmit={handleSubmit} />
-      <ul className="todoStatus">
-        {listStatus.map((status, index) => {
-          return (
-            <li className={activeTab === status ? "active" : ""} key={index} onClick={() => setActiveTab(status)}>
-              {status} 
-              {/* {`Count - `} {activeTab === "Pending" ? pendingTasks.length : completedTasks.length} */}
-            </li>
-          )
-        })}
-      </ul>
-      <div className="todoTasks">
-        {activeTab === "Completed" 
-        ? <CompletedTodoItems completedListItems={completedTasks} handleMarkPending={handleMarkPending} /> 
-        : <PendingTodoItems pendingListItems={pendingTasks} handleMarkComplete={handleMarkComplete} />}
+      <div className="container">
+        <AddTasks
+          value={todo}
+          setValue={setTodo}
+          handleSubmit={handleSubmit}
+          title={TODO_LIST}
+          placeholderText={ENTER_TODO_ITEM}
+          btnText={ADD_TASK}
+        />
+        <Tabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          header={statuses}
+          content={
+            <TasksList
+              taskStatus={activeTab}
+              listItems={
+                activeTab === COMPLETED ? completedTasks : pendingTasks
+              }
+              state={state}
+              dispatch={dispatch}
+            />
+          }
+        />
       </div>
     </div>
-  )
-}
+  );
+};
+
 export default App;
