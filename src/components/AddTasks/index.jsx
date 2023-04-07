@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Button from "../Button";
+import Button from '../Button'
 
-import "./index.css";
+import './index.css'
 
 const AddTasks = (props) => {
   const { value, setValue, handleSubmit, title, btnText, placeholderText } =
-    props;
+    props
 
   return (
     <>
@@ -22,8 +22,8 @@ const AddTasks = (props) => {
         <Button type="submit" text={btnText} />
       </form>
     </>
-  );
-};
+  )
+}
 
 AddTasks.propTypes = {
   value: PropTypes.string,
@@ -31,7 +31,7 @@ AddTasks.propTypes = {
   btnText: PropTypes.string,
   placeholderText: PropTypes.string,
   setValue: PropTypes.func,
-  handleSubmit: PropTypes.func,
-};
+  handleSubmit: PropTypes.func
+}
 
-export default AddTasks;
+export default AddTasks

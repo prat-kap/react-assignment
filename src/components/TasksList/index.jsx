@@ -1,35 +1,39 @@
-import { React } from "react";
-import PropTypes from "prop-types";
+import { React } from 'react'
+import PropTypes from 'prop-types'
 
-import Button from "../Button";
+import Button from '../Button'
 
-import { LABELS } from "../../constants/CommonConsts";
+import { LABELS } from '../../constants/CommonConsts'
 
-import "./index.css";
+import './index.css'
 
 const TasksList = (props) => {
-  const { taskStatus, listItems, state, dispatch } = props;
-  const { MARK_AS, COUNT_OF, TASKS, PENDING, COMPLETED, TOGGLE } = LABELS;
+  const { taskStatus, listItems, state, dispatch } = props
+  const { MARK_AS, COUNT_OF, TASKS, PENDING, COMPLETED, TOGGLE } = LABELS
 
   const handleMarkComplete = (index) => {
-    const task = state.todos.find((item) => item.id === index);
+    const task = state.find((item) => item.taskDetails.id === index)
     dispatch({
       type: TOGGLE,
-      payload: task.taskName,
-      status: COMPLETED,
-      id: task.id,
-    });
-  };
+      payload: {
+        taskName: task.taskDetails.taskName,
+        status: COMPLETED,
+        id: task.taskDetails.id
+      }
+    })
+  }
 
   const handleMarkPending = (index) => {
-    const task = state.todos.find((item) => item.id === index);
+    const task = state.find((item) => item.taskDetails.id === index)
     dispatch({
       type: TOGGLE,
-      payload: task.taskName,
-      status: PENDING,
-      id: task.id,
-    });
-  };
+      payload: {
+        todo: task.taskDetails.taskName,
+        status: PENDING,
+        id: task.taskDetails.id
+      }
+    })
+  }
 
   return (
     <>
@@ -37,31 +41,31 @@ const TasksList = (props) => {
       <ul className="listItems">
         {listItems &&
           listItems.map((item) => (
-            <li key={item.id}>
-              <span className="itemName">{item.taskName}</span>
+            <li key={item.taskDetails.id}>
+              <span className="itemName">{item.taskDetails.taskName}</span>
               {taskStatus === COMPLETED ? (
                 <Button
                   text={`${MARK_AS} ${PENDING}`}
-                  handleClick={() => handleMarkPending(item.id)}
+                  handleClick={() => handleMarkPending(item.taskDetails.id)}
                 />
               ) : (
                 <Button
                   text={`${MARK_AS} ${COMPLETED}`}
-                  handleClick={() => handleMarkComplete(item.id)}
+                  handleClick={() => handleMarkComplete(item.taskDetails.id)}
                 />
               )}
             </li>
           ))}
       </ul>
     </>
-  );
-};
+  )
+}
 
 TasksList.propTypes = {
   taskStatus: PropTypes.string,
   listItems: PropTypes.array,
-  state: PropTypes.object,
-  dispatch: PropTypes.func,
-};
+  state: PropTypes.array,
+  dispatch: PropTypes.func
+}
 
-export default TasksList;
+export default TasksList

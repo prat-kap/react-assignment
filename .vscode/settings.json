@@ -11,5 +11,6 @@
   "html.format.indentInnerHtml": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
-  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+  "prettier.configPath": ".prettierrc.json"
 }
