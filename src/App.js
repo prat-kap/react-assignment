@@ -1,38 +1,40 @@
-import { React, useReducer, useState } from "react";
-import { INITIAL_STATE, TodoListReducer } from "./hooks/TodoListReducer";
+import { React, useReducer, useState } from 'react'
+import { INITIAL_STATE, TodoListReducer } from './reducer/TodoListReducer'
 
-import AddTasks from "./components/AddTasks";
-import TasksList from "./components/TasksList";
-import Tabs from "./components/Tabs";
+import AddTasks from './components/AddTasks'
+import TasksList from './components/TasksList'
+import Tabs from './components/Tabs'
 
-import { statuses, LABELS } from "./constants/CommonConsts";
+import { statuses, LABELS } from './constants/CommonConsts'
 
-import "./App.css";
+import './App.css'
 
 const App = () => {
   const { PENDING, COMPLETED, TODO_LIST, ENTER_TODO_ITEM, ADD_TASK, ADD } =
-    LABELS;
-  const [activeTab, setActiveTab] = useState(statuses[0]);
-  const [todo, setTodo] = useState("");
-  const [state, dispatch] = useReducer(TodoListReducer, INITIAL_STATE);
+    LABELS
+  const [activeTab, setActiveTab] = useState(statuses[0])
+  const [todo, setTodo] = useState('')
+  const [state, dispatch] = useReducer(TodoListReducer, INITIAL_STATE)
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (todo !== "") {
+    e.preventDefault()
+    if (todo !== '') {
       dispatch({
         type: ADD,
-        payload: todo,
-        status: PENDING,
-        id: `${todo}-${Date.now()}`,
-      });
-      setTodo("");
+        payload: {
+          taskName: todo,
+          status: PENDING,
+          id: `${todo}-${Date.now()}`
+        }
+      })
+      setTodo('')
     }
-  };
+  }
 
   const pendingTasks =
-    state.todos && state.todos.filter((todo) => todo.status === PENDING);
+    state && state.filter((todo) => todo.taskDetails.status === PENDING)
   const completedTasks =
-    state.todos && state.todos.filter((todo) => todo.status === COMPLETED);
+    state && state.filter((todo) => todo.taskDetails.status === COMPLETED)
 
   return (
     <div className="App">
@@ -62,7 +64,7 @@ const App = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
