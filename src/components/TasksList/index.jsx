@@ -16,7 +16,6 @@ const TasksList = (props) => {
     dispatch({
       type: TOGGLE,
       payload: {
-        taskName: task.taskDetails.taskName,
         status: COMPLETED,
         id: task.taskDetails.id
       }
@@ -28,7 +27,6 @@ const TasksList = (props) => {
     dispatch({
       type: TOGGLE,
       payload: {
-        todo: task.taskDetails.taskName,
         status: PENDING,
         id: task.taskDetails.id
       }
